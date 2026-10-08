@@ -1,0 +1,27 @@
+<h1>{{ titoloCinema | uppercase }}</h1>
+<p>Oggi è il {{ oggi | date:'dd/MM/yyyy' }}</p>
+
+<input [(ngModel)]="nome" placeholder="Ciao! Inserisci il tuo nome" />
+
+<div class="catalogo">
+  @for (film of listaFilm; track film.titolo) {
+  <div class="film">
+    <img [src]="film.foto" [alt]="film.titolo">
+    <h2>{{ film.titolo }}</h2>
+    <p>Genere: {{ film.genere }}</p>
+    <p>Anno: {{ film.anno }}</p>
+    <p>Biglietto: {{ film.prezzo | currency:'EUR' }}</p>
+
+    <button [disabled]="nome === ''" (click)="scegli(film.titolo)">
+      Scegli film
+    </button>
+  </div>
+}
+</div>
+
+@if (filmScelto !== '') {
+  <div class="prenotazione">
+    <p>Benvenuto\a {{ nome }}! Hai scelto il film {{ filmScelto }}.</p>
+    <button (click)="annulla()">Annulla prenotazione</button>
+  </div>
+}
